@@ -2,8 +2,9 @@
 from calendar import c
 from typing import Dict, Union
 
-# Import the functions we wrote in procedural_resale_shop.py
-from procedural_resale_shop import buy, update_price, sell, print_inventory, refurbish
+# Import the functions we wrote in oo_resale_shop.py
+from oo_resale_shop import buy_computer
+from computerclass import *
 
 """ This helper function takes in a bunch of information about a computer,
     and packages it up into a python dictionary to make it easier to store
@@ -12,6 +13,8 @@ from procedural_resale_shop import buy, update_price, sell, print_inventory, ref
     explicit data types (str, int, etc.) listed in a python function. We're 
     going to go the extra step, because when we get to Java it'll be required!
 """
+
+
 def create_computer(description: str,
                     processor_type: str,
                     hard_drive_capacity: int,
@@ -26,17 +29,14 @@ def create_computer(description: str,
             'operating_system': operating_system,
             'year_made': year_made,
             'price': price
-    }
+            }
+
 
 def main():
-    
-    # First, let's make a computer
-    computer = create_computer(
-        "Mac Pro (Late 2013)",
-        "3.5 GHc 6-Core Intel Xeon E5",
-        1024, 64,
-        "macOS Big Sur", 2013, 1500
-    )
+
+    c = Computer(
+        "Mac Pro (Late 2013)", "3.5 GHc 6-Core Intel Xeon E5", 1024, 64, "macOS Big Sur", 2013, 1500)
+   
 
     # Print a little banner
     print("-" * 21)
@@ -44,9 +44,9 @@ def main():
     print("-" * 21)
 
     # Add it to the resale store's inventory
-    print("Buying", computer["description"])
+    buy_computer(c)
     print("Adding to inventory...")
-    computer_id = buy(computer)
+    computer_id = buy_computer(c)
     print("Done.\n")
 
     # Make sure it worked by checking inventory
@@ -65,15 +65,17 @@ def main():
     print("Checking inventory...")
     print_inventory()
     print("Done.\n")
-    
+
     # Now, let's sell it!
     print("Selling Item ID:", computer_id)
     sell(computer_id)
-    
+
     # Make sure it worked by checking inventory
     print("Checking inventory...")
     print_inventory()
     print("Done.\n")
 
+
 # Calls the main() function when this file is run
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    main()
